@@ -76,28 +76,9 @@ var listener = app.listen(PORT, function () {
 var io = require('socket.io')(listener);
 
 
-var botcmds = new BotCMDs(io);
-
-io.on('connection', function(socket){
-  console.log('a user connected socket.io');
-
-  socket.on('chat message', (data) => {
-    console.log('msg',data)
-    io.emit('chat message', data);
-    botcmds.parsecmds(socket,data,(_txt)=>{
-      io.emit('chat message', _txt);
-    });
-  })
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected')
-  })
-});
-
-
 var bdatabase = process.env.BDatabase || false;
 console.log("bdatabase:",bdatabase);
-console.log(typeof(bdatabase))
+//console.log(typeof(bdatabase));
 //gun config here for database if need to be added.
 var gunconfig = {
   web:listener//server express
@@ -145,6 +126,24 @@ gun.on('bye', (peer)=>{// peer disconnect
 });
 
 
+var botcmds = new BotCMDs({io:io,gun:gun});
+botcmds.init();
+
+io.on('connection', function(socket){
+  console.log('a user connected socket.io');
+
+  socket.on('chat message', (data) => {
+    console.log('msg',data)
+    io.emit('chat message', data);
+    botcmds.parsemessage(socket,data,(_txt)=>{
+      io.emit('chat message', _txt);
+    });
+  })
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+  })
+});
 
 //const say = require('say')
 // Use default system voice and speed

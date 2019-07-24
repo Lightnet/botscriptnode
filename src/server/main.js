@@ -81,7 +81,7 @@ var io = require('socket.io')(listener);
 console.log('BotCMDs');
 //console.log(BotCMDs);
 //console.log(botcmd);
-var botcmds = new BotCMDs(io);
+
 io.on('connection', function(client) {
 	console.log('Client connected...');
   
@@ -120,7 +120,7 @@ if(bdatabase =='true'){
   //file: dbFile,
   //web:listener//server express
 //});
-/*
+
 var gun = Gun(gunconfig);
 
 gun.on('hi', peer => {//peer connect
@@ -132,5 +132,6 @@ gun.on('bye', (peer)=>{// peer disconnect
   //console.log('disconnected from', peer);
   console.log('disconnected from peer!');
 });
-*/
 
+
+var botcmds = new BotCMDs({io:io,gun:gun});

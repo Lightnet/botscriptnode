@@ -76,6 +76,19 @@
 				0% { transform: rotate(0deg); }
 				100% { transform: rotate(360deg); }
 			}
+
+			#app{
+				position: absolute;
+				top:0px;
+				left:0px;
+			}
+
+			#sceneapp{
+				position: absolute;
+				top:0px;
+				left:0px;
+				z-index:-1;
+			}
     	</style>
   	</head>
   	<body>
@@ -86,37 +99,39 @@
 		<br><progress id="progressbar" value="0" max="100"></progress>
 		</div>
 		-->
-		<div id="app"></div>
-		<a-scene vr-mode-ui="enabled: false">
+		
+		
+		
+		<a-scene id="sceneapp" vr-mode-ui="enabled: false">
 			<a-assets>
 				<canvas id="canvasObj" crossorigin="anonymous" webkit-playsinline=""></canvas>
 				<img id="agustina" src="agustina_full02.png">
 			</a-assets>
 			<a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-			<!--
-			
-			-->
-			<a-sky color="#ECECEC"></a-sky>
-			<!--
-			<a-entity geometry="primitive: box; width:5; height:2; depth:0.01;" position="0 3 -4" material="shader: html; target: #htmlElement; fps:1;"></a-entity>
-			-->
-			<!-- Camera + cursor. -->
+
 			<a-entity id="cameraRig" position="0 1.6 0">
-					<a-camera look-controls="pointerLockEnabled:true" wasd-controls="enabled:true" position="0 0 0">
-						<a-gui-cursor id="cursor"
-								raycaster="objects: [gui-interactable]"
-								fuse="false"
-								design="ring"
-						>
-						</a-gui-cursor> <!-- /cursor -->
-					</a-camera> <!-- /camera -->
-				</a-entity>
+				<a-camera look-controls="pointerLockEnabled:true" wasd-controls="enabled:true" position="0 0 0">
+					<a-gui-cursor id="cursor"
+							raycaster="objects: [gui-interactable]"
+							fuse="false"
+							design="ring"
+					>
+					</a-gui-cursor> 
+				</a-camera>
+			</a-entity>
+			<!--
 			<div style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
 				<div id="htmlElement" style="background: #fff; color:#000; font-size: 60px; width:1500px; height: 600px;">
 					Test
 				</div>
 			</div>
+			-->
 		</a-scene>
+		
+		<div id="app"></div>
+		
+
+		<!--
 		<div id="boxmessage">
 			<ul id="messages">
 				<li>Test</li>
@@ -125,6 +140,7 @@
 		<form action="javascript:void(0);">
 		<input id="minput" autocomplete="off" /><button>Send</button>
 		</form>
+		-->
 		
 		<script>
 			//document.body.addEventListener("load", (e)=>{console.log("progressbarid load?")});
